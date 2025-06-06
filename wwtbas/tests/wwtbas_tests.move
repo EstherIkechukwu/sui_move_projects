@@ -1,18 +1,24 @@
-/*
+
 #[test_only]
-module wwtbas::wwtbas_tests;
-// uncomment this line to import the module
-// use wwtbas::wwtbas;
+module wwtbas::wwtbas_tests{
 
-const ENotImplemented: u64 = 0;
+        use wwtbas::wwtbas;
+        use sui::test_scenario;
 
-#[test]
-fun test_wwtbas() {
-    // pass
+        const ENotImplemented: u64 = 0;
+
+        #[test]
+        fun test_can_create_quiz() {
+            let sender = address = @0*123;
+            let scenario = test_scenario::begin(sender);
+            let ctx = scenario.ctx();
+            let quiz = wwtbas::new_quiz(ctx);
+            assert!(scenario.num_concluded_txes()!= 0)
+            test_scenario::end(scenario);
+        }
+
+    #[test, expected_failure(abort_code = ::wwtbas::wwtbas_tests::ENotImplemented)]
+    fun test_wwtbas_fail() {
+        abort ENotImplemented
+    }
 }
-
-#[test, expected_failure(abort_code = ::wwtbas::wwtbas_tests::ENotImplemented)]
-fun test_wwtbas_fail() {
-    abort ENotImplemented
-}
-*/
