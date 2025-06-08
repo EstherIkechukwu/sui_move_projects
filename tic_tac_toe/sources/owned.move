@@ -1,6 +1,5 @@
 
 module tic_tac_toe::tic_tac_toe{
-
     use sui::object::id;
 
     public struct Game has key, store {
@@ -30,7 +29,7 @@ module tic_tac_toe::tic_tac_toe{
         transfer::transfer(turn, x);
         game
     }
-
+}
 
     public struct Mark has key, store{
         id: UID,
@@ -86,9 +85,11 @@ module tic_tac_toe::tic_tac_toe{
     } else {
         abort EInvalidEndState
     }
+    }
 }
 
-}
+    
+
 
 
 
