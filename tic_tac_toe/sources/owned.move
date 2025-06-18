@@ -1,5 +1,7 @@
 
 module tic_tac_toe::tic_tac_toe{
+
+    use sui::transfer::transfer;
     use sui::object::id;
 
     public struct Game has key, store {
