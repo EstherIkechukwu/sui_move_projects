@@ -2,8 +2,8 @@
 module wwtbas::wwtbas{
 
     use sui::transfer::public_transfer;
-    use sui::test_scenario::sender;
     use std :: {string, debug, string::String};
+    use std :: vector;
     
     //Game Elements
     //Player
@@ -25,22 +25,23 @@ module wwtbas::wwtbas{
     }
 
     public fun new_quiz(ctx : &mut TxContext){
-        let quiz : Quiz = Quiz{
+        let quiz = Quiz{
             id : object::new(ctx),
-            questions :vector<String>[],
+            questions :vector[],
         };
         debug::print(&quiz);
         transfer::public_transfer(quiz, ctx.sender());
     }
 
-    public fun add_question(quiz: Quiz, question : string::String){
-        quiz.questions.push_back(question);
-        debug ::print(&quiz.questions);
+    public fun add_question(quiz: &mut Quiz, question:String){
+        let questions = &mut quiz.questions;
+        questions.push_back(question);
+        debug ::print(questions);
     }
 
-    public fun get_question(quiz:Quiz): vector<vector<u8>> {
-        return quiz.questions;
-    }
+    // public fun get_quiz_size(quiz:Quiz): vector<vector<u8>> {
+    //     return quiz.questions.length();
+    // }
 
 
      #[test]
@@ -48,14 +49,14 @@ module wwtbas::wwtbas{
         let sender = @0x123;
         let mut scenario = test_scenario::begin(sender);
         let ctx = scenario.ctx();
-        let quiz = Quiz{
+        let quiz = &mut Quiz{
             id: object::new(ctx),
-            questions: vector<vector<u8>>[],
+            questions: vector[],
         };
         debug::print(&quiz);
         let question =  string::utf8(b"What is the capital of Nigeria?");
         quiz.add_question(question);
-        assert!(quiz.get_questions().length()>0 , 0);
+        assert!(quiz.get_quiz_size = 1, 0);
     }
 
 
