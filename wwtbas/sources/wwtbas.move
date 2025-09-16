@@ -32,7 +32,6 @@ module wwtbas::wwtbas{
         debug::print(&quiz);
         transfer::public_transfer(quiz, ctx.sender());
     }
-
     public fun add_question(quiz: &mut Quiz, question:String){
         let questions = &mut quiz.questions;
         questions.push_back(question);
